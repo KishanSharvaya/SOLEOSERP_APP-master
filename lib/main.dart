@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:soleoserp/ui/res/localizations/app_localizations.dart';
 import 'package:soleoserp/ui/res/style_resources.dart';
+import 'package:soleoserp/ui/screens/Cart/cart_list_screen.dart';
 import 'package:soleoserp/ui/screens/PaginationScreen/pagination_list_screen.dart';
 import 'package:soleoserp/ui/screens/authentication/first_screen.dart';
 import 'package:soleoserp/utils/general_utils.dart';
+import 'package:soleoserp/utils/offline_db_helper.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await OfflineDbHelper.createInstance();
+
   runApp(MyApp());
 }
 
@@ -22,6 +27,9 @@ class MyApp extends StatefulWidget {
     }
     if (settings.name == PaginationListScreen.routeName) {
       return getMaterialPageRoute(PaginationListScreen());
+    }
+    if (settings.name == DynamicCartScreen.routeName) {
+      return getMaterialPageRoute(DynamicCartScreen());
     }
 
     //if screen have arguments to pass data in next screen while transiting
